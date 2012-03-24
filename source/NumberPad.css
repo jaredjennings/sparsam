@@ -1,0 +1,10 @@
+.number-button {
+    height: 90px;
+    width: 90px;
+    font-size: 40px;
+    margin: 2px;
+}
+
+.number-button-clear {
+    background-color: #ffb060;
+}
