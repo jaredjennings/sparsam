@@ -3,15 +3,31 @@
 <html>
 <head>
     <title>Sparsam</title>
-    <link rel="stylesheet" href="enyo-2.0b3/enyo.css" type="text/css" />
-    <link rel="stylesheet" href="onyx-2.0b3/onyx.css" type="text/css" />
-    <script type="text/javascript" src="enyo-2.0b3/enyo.js"></script>
-    <script type="text/javascript" src="onyx-2.0b3/onyx.js"></script>
+    <link rel="stylesheet" href="enyo-2.0b3-r1-03221216/enyo-2.0b3/enyo.css" 
+          type="text/css" />
+    <script type="text/javascript"
+            src="enyo-2.0b3-r1-03221216/enyo-2.0b3/enyo.js"></script>
     <script type="text/javascript" src="source/package.js"></script>
 </head>
 <body>
     <script type="text/javascript">
-        new SparsamApp().write();
+        var sa = new SparsamApp();
+        var ev = sa.$.envelopes;
+        ev.createComponent(
+            { kind: Envelope,
+              capacity: 280.0, spent: 30.43,
+              ename: "groceries", });
+        ev.createComponent(
+            { kind: Envelope,
+              capacity: 60.0, spent: 30.43,
+              ename: "household", });
+//	{ name: "three", kind: Envelope,
+//          capacity: 180.0, spent: 30.43,
+//          ename: "gas", },
+//	{ name: "four", kind: Envelope,
+//          capacity: 480.32, spent: 30.43,
+//          ename: "bla", },
+        sa.write();
     </script>
 </body>
 </html>
