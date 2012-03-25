@@ -1,7 +1,9 @@
 enyo.kind({
     name: "SparsamApp",
     kind: enyo.Control,
+    classes: ["onyx"],
     components: [
-	{ name: "np", kind: MoneyInput },
+        { name: "envelopes", kind: Envelopes,
+        },
     ],
 });
