@@ -34,8 +34,17 @@ enyo.kind({
         var o = inEvent.originator;
         switch(o) {
             case this.$.bOk:
-                alert("post!");
-                this.hide();
+                var request = new enyo.Ajax({
+                    method: "POST",
+                    url: "/sparsam/cgi/backend.cgi/spend",
+                    callbackName: "callback"
+                });
+                request.response(enyo.bind(this, "showResponse"));
+                this.$.bOk.setDisabled(true);
+                request.go({
+                    amount: this.$.input.numericValue,
+                    eid: this.getEid(),
+                });
                 break;
             case this.$.bCancel:
                 alert("cancel");
@@ -48,6 +57,12 @@ enyo.kind({
                 break;
         }
         return true;
+    },
+    showResponse: function(inRequest, inResponse) {
+        if(!inResponse) return;
+        this.$.bOk.setDisabled(false);
+        alert(enyo.json.stringify(inResponse));
+        this.hide();
     },
 })
 
