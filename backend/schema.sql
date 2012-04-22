@@ -1,12 +1,13 @@
 create table envelope (
 	id integer primary key,
-	name text
+	name text,
+	limit_cents integer
 );
 
-create table transaction (
+create table txn (
 	id integer primary key,
 	eid integer,
 	description text,
 	special text,
-	amount_in_cents integer
+	cents integer
 );
