@@ -42,12 +42,11 @@ enyo.kind({
                 request.response(enyo.bind(this, "showResponse"));
                 this.$.bOk.setDisabled(true);
                 request.go({
-                    amount: this.$.input.numericValue,
+                    cents: Math.floor(this.$.input.numericValue * 100),
                     eid: this.getEid(),
                 });
                 break;
             case this.$.bCancel:
-                alert("cancel");
                 this.hide();
                 break;
             default:
@@ -61,7 +60,7 @@ enyo.kind({
     showResponse: function(inRequest, inResponse) {
         if(!inResponse) return;
         this.$.bOk.setDisabled(false);
-        alert(enyo.json.stringify(inResponse));
+        this.owner.refetch(this.eid);
         this.hide();
     },
 })

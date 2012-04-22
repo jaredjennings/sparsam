@@ -1,6 +1,7 @@
 enyo.kind({
     name: "Envelopes",
     kind: enyo.Control,
+    envelopesById: {},
     components: [
         { name: "popup", kind: BuyPopup,
         },
@@ -30,12 +31,13 @@ enyo.kind({
     },
     populate: function(inRequest, inResponse) {
         if(!inResponse) return;
+        this.envelopesById = {}
         for (id in inResponse) {
             var env = inResponse[id];
-            this.createComponent(
+            this.envelopesById[id] = this.createComponent(
                 { kind: Envelope,
                   eid: id,
-                  capacity: env['limit_cents'] / 100.0,
+                  capacity: env['limit_cents'],
                   spent: env['cents'],
                   ename: env['name'],
                 });
@@ -43,4 +45,7 @@ enyo.kind({
         this.$.pleaseWait.hide();
         this.render();
     },
+    refetch: function(eid) {
+        this.envelopesById[eid].refetch();
+    }
 });

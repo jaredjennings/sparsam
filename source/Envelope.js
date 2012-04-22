@@ -34,6 +34,19 @@ enyo.kind({
         this.capacityChanged();
         this.spentChanged();
     },
+    refetch: function() {
+        var request = new enyo.Ajax({
+            method: "GET",
+            url: "/sparsam/cgi/backend.cgi/envelope",
+        });
+        request.response(enyo.bind(this, "refetched"));
+        request.go({ eid: this.eid });
+    },
+    refetched: function(inRequest, inResponse) {
+        if(!inResponse) return;
+        this.setCapacity(inResponse['limit_cents']);
+        this.setSpent(inResponse['cents']);
+    },
 })
 
 
