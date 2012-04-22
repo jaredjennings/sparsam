@@ -4,6 +4,10 @@ enyo.kind({
     components: [
         { name: "popup", kind: BuyPopup,
         },
+        { name: "pleaseWait", kind: onyx.ProgressBar,
+          showStripes: true, animateStripes: true,
+          progress: 100,
+        },
     ],
     tap: function(inSender, inEvent) {
         if(inSender.kindName == "Envelope") {
@@ -14,6 +18,8 @@ enyo.kind({
         this.$.popup.show();
     },
     fetch: function() {
+        this.$.pleaseWait.show();
+        this.render();
         var request = new enyo.Ajax({
             method: "GET",
             url: "/sparsam/cgi/backend.cgi/envelopes",
@@ -34,6 +40,7 @@ enyo.kind({
                   ename: env['name'],
                 });
         }
+        this.$.pleaseWait.hide();
         this.render();
     },
 });
