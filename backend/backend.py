@@ -35,7 +35,7 @@ def envelopes():
     c = g.db.cursor()
     q = c.execute('SELECT id, name, limit_cents FROM envelope ORDER BY name')
     result = {}
-    for row in q:
+    for row in q.fetchall():
         result[row[0]] = {
             'name': row[1],
             'cents': amountIn(c, row[0]),
