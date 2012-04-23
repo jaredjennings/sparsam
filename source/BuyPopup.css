@@ -7,3 +7,8 @@
 .buy-popup-title {
     width: 100%;
 }
+
+.buy-popup input {
+    font-size: 150%;
+    width: 6em;
+}

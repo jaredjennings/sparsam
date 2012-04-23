@@ -4,8 +4,8 @@ enyo.kind({
     tag: "div",
     components: [
         { name: "input", kind: onyx.Input,
+          type: "number",
           classes: ["money-value"], },
-        { name: "pad", kind: NumberPad },
     ],
     published: {
         numericValue: 0.0,
@@ -42,25 +42,5 @@ enyo.kind({
     zero: function() {
         this.setNumericValue(0.0);
         this.setDecimalPointTyped(false);
-    },
-    tap: function(inSender, inEvent) {
-        var o = inEvent.originator;
-        switch(o.kind) {
-            case NumberClear:
-                this.zero();
-                return true;
-                break;
-            case NumberDecimalPoint:
-                this.addDecimalPoint();
-                return true;
-                break;
-            case NumberButton:
-                this.addDigit(o.getContent());
-                return true;
-                break;
-            default:
-                return false;
-                break;
-        }
     },
 })

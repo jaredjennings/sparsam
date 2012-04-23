@@ -5,6 +5,7 @@ enyo.kind({
     floating: true,
     centered: true,
     autoDismiss: false,
+    classes: "buy-popup",
     published: {
         eid: 0,
         title: "",
@@ -12,7 +13,8 @@ enyo.kind({
     components: [
         { name: "title", kind: enyo.Control, 
           tag: "div", content: "" },
-        { name: "input", kind: MoneyInput, },
+        { name: "input", kind: onyx.Input,
+          type: "number", },
         { tag: "div", style: "text-align: center;",
           components: [
             { name: "bOk", kind: onyx.Button,
@@ -30,6 +32,13 @@ enyo.kind({
         this.inherited(arguments);
         this.titleChanged();
     },
+    setShowing: function(inShowing) {
+        this.inherited(arguments);
+        if(inShowing) {
+            this.$.input.setValue("");
+            this.$.input.focus();
+        }
+    },
     tap: function(inSender, inEvent) {
         var o = inEvent.originator;
         switch(o) {
@@ -42,12 +51,14 @@ enyo.kind({
                 request.response(enyo.bind(this, "showResponse"));
                 this.$.bOk.setDisabled(true);
                 request.go({
-                    cents: Math.floor(this.$.input.numericValue * 100),
+                    cents: Math.floor(parseFloat(this.$.input.getValue()) * 100),
                     eid: this.getEid(),
                 });
+                return true;
                 break;
             case this.$.bCancel:
                 this.hide();
+                return true;
                 break;
             default:
                 // tap was in the input field, or label, or blank area, or
