@@ -1,8 +1,7 @@
 .number-button {
-    width: 90px;
-    height: 70px;
-    font-size: 40px;
-    margin: 2px;
+    width: 2.3em;
+    height: 2em;
+    margin: 0.2em;
 }
 
 .number-button-clear {
