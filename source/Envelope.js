@@ -7,6 +7,7 @@ enyo.kind({
         ename: "",
         capacity: 0,
         spent: 0,
+        nearlyFull: 0.9,
     },
     components: [
         { name: "bar", kind: onyx.ProgressButton,
@@ -15,6 +16,10 @@ enyo.kind({
               { name: "enametext", kind: enyo.Control,
                 content: "",
                 classes: ["envelope-name"],
+              },
+              { name: "capacitytext", kind: enyo.Control,
+                content: "",
+                classes: ["envelope-capacity"],
               }
           ],
         }
@@ -24,9 +29,34 @@ enyo.kind({
     },
     capacityChanged: function(inOld) {
         this.$.bar.setMax(this.capacity);
+        this._remainingChanged();
     },
     spentChanged: function(inOld) {
         this.$.bar.animateProgressTo(this.spent);
+        var ratio = this.spent / this.capacity;
+        if(ratio > 1.0) {
+            this.addClass('envelope-spent');
+        } else if(ratio > this.nearlyFull) {
+            this.addClass('envelope-nearly-spent');
+        } else {
+            this.removeClass('envelope-spent');
+            this.removeClass('envelope-nearly-spent');
+        }
+        this._remainingChanged();
+    },
+    _remainingChanged: function() {
+        var toShow = this.capacity - this.spent;
+        var left = "left";
+        if(toShow < 0) {
+            // show "over budget" instead of negative "left"
+            toShow = -toShow;
+            left = "over budget";
+        }
+        var dollars = Math.floor(toShow / 100);
+        var cents = toShow % 100;
+        if(cents < 10) cents = "0" + cents;
+        var text = "$" + dollars + "." + cents + " " + left;
+        this.$.capacitytext.setContent(text);
     },
     create: function() {
         this.inherited(arguments);

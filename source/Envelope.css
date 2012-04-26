@@ -2,7 +2,16 @@
     visibility: hidden;
 }
 
-.red .onyx-progress-bar-bar {
-        background: #ff0000 url(../enyo-2.0b3-r1-03221216/lib/onyx/images/gradient.png) repeat-x;
+.envelope-capacity {
+    float: right;
 }
+
+.envelope-nearly-spent .onyx-progress-bar-bar {
+        background: #e06050 url(../enyo-2.0b3-r1-03221216/lib/onyx/images/gradient.png) repeat-x;
+}
+
+.envelope-spent .onyx-progress-bar-bar {
+        background: #e06050 url(../enyo-2.0b3-r1-03221216/lib/onyx/images/gradient.png) repeat-x;
+}
+
 
