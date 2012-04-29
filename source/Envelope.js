@@ -48,14 +48,12 @@ enyo.kind({
         var toShow = this.capacity - this.spent;
         var left = "left";
         if(toShow < 0) {
-            // show "over budget" instead of negative "left"
+            // show "over" instead of negative "left"
             toShow = -toShow;
-            left = "over budget";
+            left = "over";
         }
-        var dollars = Math.floor(toShow / 100);
-        var cents = toShow % 100;
-        if(cents < 10) cents = "0" + cents;
-        var text = "$" + dollars + "." + cents + " " + left;
+        var dollars = Math.round(toShow / 100);
+        var text = "$" + dollars + " " + left;
         this.$.capacitytext.setContent(text);
     },
     create: function() {

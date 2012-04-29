@@ -1,9 +1,17 @@
+/* get rid of cancel button at right of progress button: the button is the
+ * whole bar */
 .envelope-progress .onyx-progress-button-icon {
-    visibility: hidden;
+    display: none;
 }
+.envelope-progress .onyx-progress-button-client {
+    right: 0px;
+    margin-right: 8px;
+}
+
 
 .envelope-capacity {
     float: right;
+    font-size: 80%;
 }
 
 .envelope-nearly-spent .onyx-progress-bar-bar {
