@@ -7,11 +7,11 @@
 }
 
 .envelope-nearly-spent .onyx-progress-bar-bar {
-        background: #e06050 url(../enyo-2.0b3-r1-03221216/lib/onyx/images/gradient.png) repeat-x;
+        background: #e06050 url(../enyo-2.0b4-r1-04271509/lib/onyx/images/gradient.png) repeat-x;
 }
 
 .envelope-spent .onyx-progress-bar-bar {
-        background: #e06050 url(../enyo-2.0b3-r1-03221216/lib/onyx/images/gradient.png) repeat-x;
+        background: #e06050 url(../enyo-2.0b4-r1-04271509/lib/onyx/images/gradient.png) repeat-x;
 }
 
 
