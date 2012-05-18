@@ -8,22 +8,14 @@
     <meta name="viewport"
           content="width=device-width, height=device-height,
                    user-scalable=no, target-densitydpi=120" />
-    <link rel="stylesheet" href="enyo-2.0b4-r1-04271509/enyo-2.0b4/enyo.css" 
-          type="text/css" />
     <script type="text/javascript"
-            src="enyo-2.0b4-r1-04271509/enyo-2.0b4/enyo.js"></script>
+            src="source/enyo/enyo.js"></script>
     <script type="text/javascript" src="source/package.js"></script>
 </head>
 <body>
     <script type="text/javascript">
         var sa = new SparsamApp();
         var ev = sa.$.envelopes;
-//	{ name: "three", kind: Envelope,
-//          capacity: 180.0, spent: 30.43,
-//          ename: "gas", },
-//	{ name: "four", kind: Envelope,
-//          capacity: 480.32, spent: 30.43,
-//          ename: "bla", },
         sa.write();
         ev.fetch();
     </script>
