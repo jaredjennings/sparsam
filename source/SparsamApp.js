@@ -6,4 +6,8 @@ enyo.kind({
         { name: "envelopes", kind: Envelopes,
         },
     ],
+    rendered: function() {
+        this.inherited(arguments);
+        this.$.envelopes.fetch();
+    }
 });
