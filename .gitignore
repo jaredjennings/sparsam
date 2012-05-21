@@ -1,3 +1,4 @@
-build
 pythonhome
 backend/*.pyc
+build/*
+deploy/*
