@@ -65,7 +65,7 @@ enyo.kind({
     refetch: function() {
         var request = new enyo.Ajax({
             method: "GET",
-            url: "/sparsam/cgi/backend.cgi/envelope",
+            url: "/sparsam/wsgi/envelope",
         });
         request.response(enyo.bind(this, "refetched"));
         request.go({ eid: this.eid });

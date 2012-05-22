@@ -1,4 +1,4 @@
 pythonhome:
-	virtualenv pythonhome
-	pythonhome/bin/pip install jsonschema
-	pythonhome/bin/pip install flask
+	virtualenv backend/pythonhome
+	backend/pythonhome/bin/pip install jsonschema
+	backend/pythonhome/bin/pip install flask

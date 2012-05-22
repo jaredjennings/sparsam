@@ -23,7 +23,7 @@ enyo.kind({
         this.render();
         var request = new enyo.Ajax({
             method: "GET",
-            url: "/sparsam/cgi/backend.cgi/envelopes",
+            url: "/sparsam/wsgi/envelopes",
             callbackName: "callback"
         });
         request.response(enyo.bind(this, "populate"));

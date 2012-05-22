@@ -45,7 +45,7 @@ enyo.kind({
             case this.$.bOk:
                 var request = new enyo.Ajax({
                     method: "POST",
-                    url: "/sparsam/cgi/backend.cgi/spend",
+                    url: "/sparsam/wsgi/spend",
                     callbackName: "callback"
                 });
                 request.response(enyo.bind(this, "showResponse"));
