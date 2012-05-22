@@ -14,6 +14,7 @@ Subdirectories
 --------------
 
 There are several things here:
+
 - A (backend) web app that receives requests and sends responses in JSON, and
   stores things in an SQLite database.
 - An Enyo app that talks to the web app.
