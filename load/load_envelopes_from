@@ -1,0 +1,86 @@
+#!/usr/bin/python
+
+import lxml.etree
+import gzip
+from Tkinter import *
+import tkFileDialog
+from urllib import urlencode
+import urllib2
+import urllib2_kerberos
+import json
+
+interesting_highlight_color = 'CCCC:FFFF:FFFF'
+
+def find_envelopes_in(gnumeric_filename):
+    result = {}
+    with gzip.open(gnumeric_filename) as f:
+        p = lxml.etree.parse(f)
+        r = p.getroot()
+        for sheet in p.xpath('//gnm:Sheet', namespaces=r.nsmap):
+            cells = sheet.find('gnm:Cells', sheet.nsmap)
+            def textAt(col, row):
+                cell = cells.xpath('*[@Col=$col and @Row=$row]',
+                                        col=str(col), row=str(row))[0]
+                return cell.text
+            highlight_ranges = sheet.xpath('gnm:Styles//gnm:Style[@Shade="1" and @Back=$c]/..', c=interesting_highlight_color, namespaces=r.nsmap)
+            # this is all row numbers that have a highlight in them. trust me
+            rows_with_highlight = sorted(list(set().union(*[set(range(int(h.get('startRow')), int(h.get('endRow')) + 1)) for h in highlight_ranges])))
+            for row in rows_with_highlight:
+                highlights_this_row = [h for h in highlight_ranges 
+                        if int(h.get('startRow')) <= row
+                        and int(h.get('endRow')) >= row]
+                columns_highlighted = sorted(list(set().union(*[set(range(int(h.get('startCol')), int(h.get('endCol')) + 1)) for h in highlights_this_row])))
+                # we expect a name and a value highlighted on a row, adjacent to each
+                # other
+                for col1, col2 in zip(columns_highlighted, columns_highlighted[1:]):
+                    if col2 == col1 + 1:
+                        # adjacent.
+                        name = textAt(col1, row)
+			# value needs to be in cents when it goes into the db.
+                        value = int(textAt(col2, row)) * 100
+                        result[name] = value
+    return result
+
+class App:
+    def __init__(self, master):
+	self.master = master
+	self.frame = frame = Frame(master)
+	frame.pack()
+	self.fileLabel = Label(frame, text="Gnumeric file to load from:")
+	self.fileLabel.pack()
+	f2 = Frame(frame)
+	self.fileEntry = Entry(f2)
+	self.fileEntry.pack(side=LEFT)
+	self.browseButton = Button(f2, text="Browse...", command=self.browse)
+	self.browseButton.pack(side=RIGHT)
+	f2.pack()
+	f3 = Frame(frame)
+	self.goButton = Button(f3, text="DELETE ALL TXNS and load envelopes", command=self.clearAndLoad)
+	self.goButton.pack(side=LEFT)
+	self.cancelButton = Button(f3, text="Cancel", command=frame.quit)
+	self.cancelButton.pack(side=RIGHT)
+	f3.pack()
+
+    def browse(self):
+	filename = tkFileDialog.askopenfilename(filetypes=['"Gnumeric files" *.gnumeric'])
+	self.fileEntry.delete(0,END)
+	self.fileEntry.insert(0, filename)
+
+    def clearAndLoad(self):
+        envelopeData = find_envelopes_in(self.fileEntry.get())
+        opener = urllib2.build_opener()
+        opener.add_handler(urllib2_kerberos.HTTPKerberosAuthHandler())
+        response = opener.open(
+                'https://np4.agrue.info/sparsam/wsgi/clearAndLoad',
+                urlencode({
+                        'envelope_data': json.dumps(envelopeData),}))
+        print response.read()
+	self.frame.quit()
+
+
+if __name__ == '__main__':
+    root = Tk()
+    root.title("Import envelopes from budget")
+    app = App(root)
+    root.mainloop()
+    

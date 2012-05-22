@@ -1,0 +1,17 @@
+This script will clear transactions and load envelopes from a budget.
+
+The budget should be a Gnumeric spreadsheet file. It should have pairs of
+left/right adjacent cells highlighted in light cyan. For example, the
+spreadsheet may say:
+
+
+  /--+------------+-----------+-\
+  |  | *Clothing* |  *$50.00* | |
+  \--+------------+-----------+-/
+
+where the stars indicate light cyan highlighting. For each such pair of cells,
+the script will create an envelope.
+
+It's assumed that the web server serving Sparsam uses Kerberos, and the same
+realm as you used when you logged into the workstation you're running the
+script on.
