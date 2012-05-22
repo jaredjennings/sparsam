@@ -1,6 +1,7 @@
 from flask import Flask, request, g, jsonify
 from contextlib import closing
 import sqlite3
+import json
 app = Flask(__name__)
 app.config.from_envvar('SB_SETTINGS')
 
@@ -72,6 +73,20 @@ def spend():
     q = c.execute(
         'INSERT INTO txn (id, eid, cents) VALUES (?, ?, ?)',
         (nextid, eid, cents))
+    g.db.commit()
+    return jsonify()
+
+@app.route("/clearAndLoad", methods=["POST"])
+def clearAndLoad():
+    envelope_data = json.loads(request.values['envelope_data'])
+    c = g.db.cursor()
+    c.execute('DELETE FROM txn')
+    c.execute('DELETE FROM envelope')
+    id = 1
+    for name, value in envelope_data.items():
+        c.execute('INSERT INTO envelope VALUES (?, ?, ?)',
+                (id, name, value))
+        id += 1
     g.db.commit()
     return jsonify()
 
