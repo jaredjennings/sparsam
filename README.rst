@@ -10,18 +10,14 @@ There are several apps and websites where you can do this already. But I want
 the information about my money on my own server, not someone else's.
 
 
-Subdirectories
---------------
+How does it work?
+-----------------
 
-There are several things here:
-
-- A (backend) web app that receives requests and sends responses in JSON, and
-  stores things in an SQLite database.
-- An Enyo app that talks to the web app.
-
-The Enyo app takes up the assets, source, enyo, lib and tools subdirectories; when you build it, build and deploy directories appear.
-
-The backend, in the backend directory, is written with Python 2 and Flask.
+A backend web app keeps an SQLite database with the details of your
+expenditures. You interact with this backend via a frontend written with Enyo
+2, from your desktop browser or your phone or tablet or what-have-you.
+(Theoretically the frontend could be an app you get from an app store, rather
+than a cool webpage, but it's early days.)
 
 
 Deployment
@@ -32,9 +28,13 @@ server. I use Debian GNU/Linux as an OS, and Apache as a web server, on QNAP
 hardware <http://www.cyrius.com/debian/kirkwood/>. But any way you can run
 Python 2.7 code via WSGI will do.
 
-Run ``make`` to generate the virtual environment. (You need virtualenv
-installed to do this, and an Internet connection to download Python modules
-into the virtualenv.)
+If you are going to have the Sparsam backend and data under /srv/www/sparsam,
+and the Enyo frontend app under /srv/www/sparsam/root, just run ``make
+install``. Otherwise read on.
+
+Run ``make backend/pythonhome`` to generate the virtual environment. (You need
+``make`` and ``virtualenv`` installed to do this, and an Internet connection to
+download Python modules into the virtualenv.)
 
 Now copy the entire backend directory somewhere your web server can see. On
 Debian I suggest ``/srv/www/sparsam``. Edit the backend/config.py to say where
