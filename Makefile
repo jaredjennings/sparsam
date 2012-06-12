@@ -1,4 +1,4 @@
-all: deploy-enyo-frontend
+all: deploy-enyo-frontend-stamp
 
 install: install-backend install-enyo-frontend
 
@@ -13,11 +13,12 @@ install-backend: backend/pythonhome
 
 # this target does not actually deploy anything: it creates a dir ready to be
 # deployed
-deploy-enyo-frontend:
+deploy-enyo-frontend-stamp: source/* enyo/*
 	cd tools; ./deploy.sh
 	cd deploy; ln -sf `ls -1rt | tail -n 1` latest
+	touch $@
 
-install-enyo-frontend: deploy-enyo-frontend
+install-enyo-frontend: deploy-enyo-frontend-stamp
 	rm -rf /srv/www/root/sparsam/*
 	cp -R deploy/latest/* /srv/www/root/sparsam/
 
