@@ -15,7 +15,7 @@ install-backend: backend/pythonhome
 # deployed
 deploy-enyo-frontend-stamp: source/* enyo/*
 	cd tools; ./deploy.sh
-	cd deploy; ln -sf `ls -1rt | tail -n 1` latest
+	cd deploy; ln -sf `ls -1 | tail -n 1` latest
 	touch $@
 
 install-enyo-frontend: deploy-enyo-frontend-stamp
