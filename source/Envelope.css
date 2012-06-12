@@ -6,8 +6,19 @@
 .envelope-progress .onyx-progress-button-client {
     right: 0px;
     margin-right: 8px;
+    /* center envelope titles */
+    text-align: center;
 }
 
+
+.envelope-spentamount {
+    float: left;
+    font-size: 80%;
+}
+
+.envelope-name {
+    text-align: center;
+}
 
 .envelope-capacity {
     float: right;

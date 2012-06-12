@@ -13,6 +13,10 @@ enyo.kind({
         { name: "bar", kind: onyx.ProgressButton,
           showStripes: false, animateStripes: false,
           components: [
+              { name: "spenttext", kind: enyo.Control,
+                content: "",
+                classes: ["envelope-spentamount"],
+              },
               { name: "enametext", kind: enyo.Control,
                 content: "",
                 classes: ["envelope-name"],
@@ -33,6 +37,7 @@ enyo.kind({
     },
     spentChanged: function(inOld) {
         this.$.bar.animateProgressTo(this.spent);
+        this.$.spenttext.setContent("$" + Math.round(this.spent / 100));
         var ratio = this.spent / this.capacity;
         if(ratio > 1.0) {
             this.addClass('envelope-spent');
