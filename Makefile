@@ -1,6 +1,6 @@
 all: deploy-enyo-frontend-stamp
 
-install: install-backend install-enyo-frontend
+install: install-semismart install-backend install-enyo-frontend
 
 backend/pythonhome:
 	virtualenv backend/pythonhome
@@ -10,6 +10,10 @@ backend/pythonhome:
 install-backend: backend/pythonhome
 	rm -rf /srv/www/sparsam/backend
 	cp -R backend /srv/www/sparsam/backend
+
+install-semismart: backend/pythonhome
+	rm -rf /srv/www/sparsam/semismart
+	cp -R semismart /srv/www/sparsam/semismart
 
 # this target does not actually deploy anything: it creates a dir ready to be
 # deployed

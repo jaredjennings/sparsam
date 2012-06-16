@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+ <head>
+  <title>Sparsam</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+ </head>
+ <body>
+  {% for message in get_flashed_messages() %}
+   <div class="flash">{{ message }}</div>
+  {% endfor %}
+  <form action="{{ url_for('spend') }}" method="post" class="spend">
+   <select name="eid" class="envelopes">
+    {% for eid, e in envelopes.items() %}
+     <option value="{{ eid }}">{{ "%s (spent %s, remains %s)" % (e['name'], e['spent'], e['remaining']) }}</option>
+    {% endfor %}
+   </select>
+   <br/>
+   Amount: <input type="text" name="amount" />
+   <br/>
+   <input type="submit" value="Submit" />
+  </form>
+ </body>
+</html>
