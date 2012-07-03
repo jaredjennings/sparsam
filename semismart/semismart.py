@@ -3,9 +3,12 @@ import os
 import sys
 
 from flask import Flask, request, g, render_template, flash, redirect, url_for
+from flask import session
 from contextlib import closing
 import sqlite3
 import json
+import random
+
 
 sys.path.append("/srv/www/sparsam/semismart")
 os.environ['SB_SETTINGS'] = '/srv/www/sparsam/backend/config.py'
@@ -40,24 +43,45 @@ def amountIn(cursor, eid):
     return amt
 
 def cents_to_dollars(cents):
-    return "%d.%02d" % (cents // 100, cents % 100)
+    #return "%d.%02d" % (cents // 100, cents % 100)
+    return "%d" % (cents // 100)
 
+def random_id():
+    """A random identifier.
+
+    Must not generate the same id within 100 invocations.
+    """
+    x = []
+    for i in range(4):
+        x.append(random.choice('abcdefghijklmnopqrstuvwxyz'))
+    return ''.join(x)
+    
 @app.route("/")
 def index():
     c = g.db.cursor()
     q = c.execute('SELECT id, name, limit_cents FROM envelope ORDER BY name')
     envelopes = {}
+    ids = {}
     for row in q.fetchall():
         id, name, limit_cents = row
         spent_cents = amountIn(c, id)
+        rid = random_id()
         envelopes[id] = {
             'name': name,
+            'rid': rid,
             'spent': cents_to_dollars(spent_cents),
             'remaining': cents_to_dollars(limit_cents - spent_cents),
             'limit': cents_to_dollars(limit_cents),
         }
+        ids[rid] = id
+    session.update(ids)
     return render_template('index.html', envelopes=envelopes)
     # todo: CSRF token
+
+@app.route("/envelope")
+def envelope():
+    eid = session[request.values['rid']]
+    return render_template('spend.html', eid=eid)
 
 @app.route("/spend", methods=["POST"])
 def spend():

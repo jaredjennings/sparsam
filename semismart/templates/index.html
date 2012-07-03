@@ -2,22 +2,13 @@
 <html>
  <head>
   <title>Sparsam</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+  <style type="text/css">body { font-size: 18pt; }</style>
  </head>
  <body>
-  {% for message in get_flashed_messages() %}
+{% for message in get_flashed_messages() %}
    <div class="flash">{{ message }}</div>
+{% endfor %}
+{% for eid, e in envelopes.items() %}<a href="{{ url_for('envelope', rid=e['rid']) }}">{{ "%s, s %s, r %s" % (e['name'], e['spent'], e['remaining']) }}</a><br/>
   {% endfor %}
-  <form action="{{ url_for('spend') }}" method="post" class="spend">
-   <select name="eid" class="envelopes">
-    {% for eid, e in envelopes.items() %}
-     <option value="{{ eid }}">{{ "%s (spent %s, remains %s)" % (e['name'], e['spent'], e['remaining']) }}</option>
-    {% endfor %}
-   </select>
-   <br/>
-   Amount: <input type="text" name="amount" />
-   <br/>
-   <input type="submit" value="Submit" />
-  </form>
  </body>
 </html>

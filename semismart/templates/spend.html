@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+ <head>
+  <title>Sparsam</title>
+  <style type="text/css">body { font-size: 18pt; }</style>
+ </head>
+ <body>
+  {% for message in get_flashed_messages() %}
+   <div class="flash">{{ message }}</div>
+  {% endfor %}
+  <form method="POST" action="{{ url_for('spend') }}">
+    <input type="hidden" name="eid" value="{{ eid }}" />
+    Amount: <input type="text" name="amount" value="" />
+    <br/>
+    <input type="submit" />
+  </form>
+ </body>
+</html>
