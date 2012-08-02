@@ -3,11 +3,14 @@ enyo.kind({
     kind: enyo.Control,
     envelopesById: {},
     components: [
-        { name: "popup", kind: BuyPopup,
+        { name: "wait", kind: onyx.Scrim,
+          showing: false,
+          style: "text-align: center",
+          components: [
+            { kind: onyx.Spinner, classes: "onyx-light", }
+          ],
         },
-        { name: "pleaseWait", kind: onyx.ProgressBar,
-          showStripes: true, animateStripes: true,
-          progress: 100,
+        { name: "popup", kind: BuyPopup,
         },
     ],
     tap: function(inSender, inEvent) {
@@ -19,7 +22,8 @@ enyo.kind({
         this.$.popup.show();
     },
     fetch: function() {
-        this.$.pleaseWait.show();
+        this.$.wait.show();
+        this.$.spinner.show();
         this.render();
         var request = new enyo.Ajax({
             method: "GET",
@@ -42,7 +46,8 @@ enyo.kind({
                   ename: env['name'],
                 });
         }
-        this.$.pleaseWait.hide();
+        this.$.spinner.hide();
+        this.$.wait.hide();
         this.render();
     },
     refetch: function(eid) {

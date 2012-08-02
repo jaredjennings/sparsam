@@ -1,5 +1,6 @@
 enyo.depends(
-    "$lib/onyx/package.js",
+    "$lib/onyx",
+    "$lib/layout",
     "NumberPad.css",
     "NumberPad.js",
     "MoneyInput.css",
