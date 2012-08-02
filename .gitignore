@@ -1,5 +1,7 @@
 sparsam-install-stem
+*-stamp
 backend/pythonhome
 backend/*.pyc
 build/*
 deploy/*
+deploy-*/*
