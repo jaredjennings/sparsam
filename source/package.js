@@ -1,8 +1,6 @@
 enyo.depends(
     "$lib/onyx",
     "$lib/layout",
-    "NumberPad.css",
-    "NumberPad.js",
     "Envelope.css",
     "Envelope.js",
     "BuyPopup.css",
