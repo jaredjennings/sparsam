@@ -35,13 +35,15 @@ def amountIn(cursor, eid):
 def envelopes():
     c = g.db.cursor()
     q = c.execute('SELECT id, name, limit_cents FROM envelope ORDER BY name')
-    result = {}
+    # i think result has to be an object not an array
+    result = {'envelopes': []}
     for row in q.fetchall():
-        result[row[0]] = {
+        result['envelopes'].append({
+            'eid': row[0],
             'name': row[1],
             'cents': amountIn(c, row[0]),
             'limit_cents': row[2],
-        }
+        })
     return jsonify(result)
 
 @app.route("/envelope")

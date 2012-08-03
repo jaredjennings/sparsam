@@ -1,0 +1,21 @@
+
+.spend-history-item {
+	height: 1em;
+	position: relative;
+	border-bottom: 1px solid #0e0e0e;
+	padding: 0.5em 0.4em;
+	background-color: #333333;
+	color: white;
+}
+
+.spend-history-item-amount {
+	float: right;
+	width: 5em;
+}
+
+.spend-history-item-date {
+	float: left;
+	width: 5em;
+}
+
+

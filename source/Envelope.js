@@ -1,13 +1,20 @@
 enyo.kind({
     name: "Envelope",
-    kind: enyo.Control,
-    classes: ["envelope-progress"],
+    kind: "enyo.Control",
+    classes: "envelope-progress envelope",
+    ontap: "envelopeTapped",
     published: {
         eid: 0,
         ename: "",
         capacity: 0,
         spent: 0,
         nearlyFull: 0.9,
+    },
+    setFromObject: function(ob) {
+        self.setEid(obj.eid);
+        self.setEname(obj.name);
+        self.setCapacity(obj.limit_cents);
+        self.setSpent(obj.cents);
     },
     components: [
         { name: "bar", kind: onyx.ProgressButton,

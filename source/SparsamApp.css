@@ -1,0 +1,17 @@
+#app {
+	margin: 0px;
+	border-radius: 4px;
+	background-color: silver;
+	padding: 0px;
+}
+
+.sparsam-sliding-panels > * {
+	width: 20em;
+	box-shadow: -4px 0px 4px rgba(0,0,0,0.3);
+	-moz-box-shadow: -4px 0px 4px rgba(0,0,0,0.3);
+	-webkit-box-shadow: -4px 0px 4px rgba(0,0,0,0.3);
+}
+
+.sparsam-title {
+	padding: 0;
+}

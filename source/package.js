@@ -3,8 +3,13 @@ enyo.depends(
     "$lib/layout",
     "Envelope.css",
     "Envelope.js",
-    "BuyPopup.css",
-    "BuyPopup.js",
     "Envelopes.js",
-    "SparsamApp.js"
+    "SpendHistory.js",
+    "SpendHistoryColumn.js",
+    "SpendHistoryItem.js",
+    "SpendHistoryItem.css",
+    "SpendNow.js",
+    "SpendNow.css",
+    "SparsamApp.js",
+    "SparsamApp.css"
 );

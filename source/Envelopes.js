@@ -1,56 +1,51 @@
 enyo.kind({
     name: "Envelopes",
-    kind: enyo.Control,
+    kind: "enyo.FittableRows",
+    classes: "onyx envelopes",
+    events: {
+        onEnvelopeSelected: "",
+    },
     envelopesById: {},
     components: [
-        { name: "wait", kind: onyx.Scrim,
-          showing: false,
-          style: "text-align: center",
-          components: [
-            { kind: onyx.Spinner, classes: "onyx-light", }
-          ],
-        },
-        { name: "popup", kind: BuyPopup,
-        },
-    ],
-    tap: function(inSender, inEvent) {
-        if(inSender.kindName == "Envelope") {
-            this.$.popup.setEid(inSender.getEid());
-            this.$.popup.setTitle("Pulling money out of " + 
-                                  inSender.getEname());
-        }
-        this.$.popup.show();
-    },
-    fetch: function() {
-        this.$.wait.show();
-        this.$.spinner.show();
-        this.render();
+        { kind: "onyx.Toolbar",
+          classes: "sparsam-title",
+          content: "Envelopes", },
+        { kind: "enyo.Scroller", components: [
+            { kind: "enyo.Repeater",
+              count: 0,
+              onSetupItem: "envelopeSetup",
+              components: [{ name: "envelope", kind: "Envelope", }],}],}],
+    create: function() {
+        this.inherited(arguments);
+        // (show spinner)
         var request = new enyo.Ajax({
             method: "GET",
             url: "/sparsam/wsgi/envelopes",
             callbackName: "callback"
         });
-        request.response(enyo.bind(this, "populate"));
+        request.response(enyo.bind(this, "answerReady"));
         request.go();
     },
-    populate: function(inRequest, inResponse) {
-        if(!inResponse) return;
-        this.envelopesById = {}
-        for (id in inResponse) {
-            var env = inResponse[id];
-            this.envelopesById[id] = this.createComponent(
-                { kind: Envelope,
-                  eid: id,
-                  capacity: env['limit_cents'],
-                  spent: env['cents'],
-                  ename: env['name'],
-                });
-        }
-        this.$.spinner.hide();
-        this.$.wait.hide();
-        this.render();
+    answerReady: function(inRequest, inResponse) {
+        this.envelopeInfo = inResponse['envelopes'];
+        this.$.repeater.setCount(Object.keys(this.envelopeInfo).length);
+    },
+    envelopeSetup: function(inSender, inEvent) {
+        var index = inEvent.index;
+        var item = inEvent.item;
+        var e = this.envelopeInfo[index];
+        item.$.envelope.setFromObject(e);
+        return true;
     },
     refetch: function(eid) {
         this.envelopesById[eid].refetch();
     }
+    envelopeTapped: function(inSender, inEvent) {
+        var e = inEvent.originator;
+        var evob = {
+            eid: e.getEid(),
+            name: e.getName(),
+        };
+        this.doEnvelopeSelected(evob);
+    },
 });
