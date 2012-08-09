@@ -2,9 +2,6 @@ enyo.kind({
     name: "Envelopes",
     kind: "enyo.FittableRows",
     classes: "onyx envelopes",
-    events: {
-        onEnvelopeSelected: "",
-    },
     envelopesById: {},
     components: [
         { kind: "onyx.Toolbar",
@@ -18,6 +15,9 @@ enyo.kind({
     create: function() {
         this.inherited(arguments);
         // (show spinner)
+        this.fetch();
+    },
+    fetch: function() {
         var request = new enyo.Ajax({
             method: "GET",
             url: "/sparsam/wsgi/envelopes",
@@ -29,6 +29,7 @@ enyo.kind({
     answerReady: function(inRequest, inResponse) {
         this.envelopeInfo = inResponse['envelopes'];
         this.$.repeater.setCount(Object.keys(this.envelopeInfo).length);
+        // (hide spinner)
     },
     envelopeSetup: function(inSender, inEvent) {
         var index = inEvent.index;
@@ -39,13 +40,5 @@ enyo.kind({
     },
     refetch: function(eid) {
         this.envelopesById[eid].refetch();
-    }
-    envelopeTapped: function(inSender, inEvent) {
-        var e = inEvent.originator;
-        var evob = {
-            eid: e.getEid(),
-            name: e.getName(),
-        };
-        this.doEnvelopeSelected(evob);
     },
 });

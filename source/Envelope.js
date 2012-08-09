@@ -2,7 +2,9 @@ enyo.kind({
     name: "Envelope",
     kind: "enyo.Control",
     classes: "envelope-progress envelope",
-    ontap: "envelopeTapped",
+    events: {
+        onEnvelopeSelected: "",
+    },
     published: {
         eid: 0,
         ename: "",
@@ -10,14 +12,14 @@ enyo.kind({
         spent: 0,
         nearlyFull: 0.9,
     },
-    setFromObject: function(ob) {
-        self.setEid(obj.eid);
-        self.setEname(obj.name);
-        self.setCapacity(obj.limit_cents);
-        self.setSpent(obj.cents);
+    setFromObject: function(obj) {
+        this.setEid(obj.eid);
+        this.setEname(obj.name);
+        this.setCapacity(obj.limit_cents);
+        this.setSpent(obj.cents);
     },
     components: [
-        { name: "bar", kind: onyx.ProgressButton,
+        { name: "bar", kind: "onyx.ProgressButton",
           showStripes: false, animateStripes: false,
           components: [
               { name: "spenttext", kind: enyo.Control,
@@ -86,6 +88,10 @@ enyo.kind({
         if(!inResponse) return;
         this.setCapacity(inResponse['limit_cents']);
         this.setSpent(inResponse['cents']);
+    },
+    tap: function(inSender, inEvent) {
+        this.doEnvelopeSelected({ eid: this.getEid(), ename: this.getEname() });
+        return true;
     },
 })
 

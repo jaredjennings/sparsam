@@ -12,20 +12,15 @@ enyo.kind({
           components: [
               { kind: "Envelopes" },
               { kind: "SpendHistoryColumn" }],}],
-    rendered: function() {
-        this.inherited(arguments);
-        this.$.envelopes.fetch();
-    }
     handlers: {
         onEnvelopeSelected: "onEnvelopeSelected",
-        onBackFromSpendHistoryColumn: "onBackFromSpendHistoryColumn",
-    },
+        onBackFromSpendHistoryColumn: "onBackFromSpendHistoryColumn", },
     onEnvelopeSelected: function(inSender, inEvent) {
-        this.$.spendHistoryColumn.fetch(inEvent.eid, inEvent.name);
+        this.$.spendHistoryColumn.fetch(inEvent.eid, inEvent.ename);
         this.$.spendHistoryColumn.show();
         this.$.panels.setIndex(1);
         // this messes up the whole alignment, in Chromium. Why?
-        //this.$.spendHistoryColumn.$.spendNow.$.amount.focus();
+        this.$.spendHistoryColumn.$.spendNow.$.amount.focus();
     },
     onBackFromSpendHistoryColumn: function(inSender, inEvent) {
         this.$.panels.setIndex(0);

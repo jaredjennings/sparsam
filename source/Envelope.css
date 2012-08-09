@@ -1,10 +1,13 @@
 .envelope {
-	height: 1em;
+	height: 42px;
 	position: relative;
-	border-bottom: 1px solid #0e0e0e;
-	padding: 0.5em 0.4em;
+	padding: 4px 8px;
 	background-color: #333333;
 	color: white;
+}
+
+.envelope-progress .onyx-progress-bar {
+    margin: 1px 1px;
 }
 
 /* get rid of cancel button at right of progress button: the button is the

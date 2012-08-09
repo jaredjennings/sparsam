@@ -7,11 +7,10 @@ enyo.kind({
 		onBackFromSpendHistoryColumn: "",
 	},
 	components: [
-		{ kind: "onyx.Toolbar", classes: "sparsam-title",
-		  components: [
-			{ name: "name", classes: "spend-history-envelope-name",
-			  content: "unset" },
-		]},
+		{ kind: "onyx.Toolbar", 
+		  name: "name",
+		  classes: "spend-history-envelope-name sparsam-title",
+		  content: "unset", },
 		{ kind: "SpendNow", },
 		{ kind: "SpendHistory", fit: true, },
 		{ kind: "onyx.Toolbar", components: [
@@ -19,8 +18,8 @@ enyo.kind({
 			  ontap: "backTapped", }
 		]},
 	],
-	fetch: function(eid, name) {
-		this.$.name.setContent(name);
+	fetch: function(eid, ename) {
+		this.$.name.setContent(ename);
 	},
 	backTapped: function(inSender, inEvent) {
 		this.doBackFromSpendHistoryColumn();
