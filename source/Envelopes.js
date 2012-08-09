@@ -7,7 +7,7 @@ enyo.kind({
         { kind: "onyx.Toolbar",
           classes: "sparsam-title",
           content: "Envelopes", },
-        { kind: "enyo.Scroller", components: [
+        { kind: "enyo.Scroller", fit: true, components: [
             { kind: "enyo.Repeater",
               count: 0,
               onSetupItem: "envelopeSetup",
