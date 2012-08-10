@@ -5,6 +5,10 @@
 	padding: 0px;
 }
 
+.sparsam {
+	background-color: #303030;
+}
+
 .sparsam-sliding-panels > * {
 	width: 20em;
 	box-shadow: -4px 0px 4px rgba(0,0,0,0.3);

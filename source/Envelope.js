@@ -1,7 +1,7 @@
 enyo.kind({
     name: "Envelope",
     kind: "enyo.Control",
-    classes: "envelope-progress envelope",
+    classes: "envelope-progress envelope sparsam",
     events: {
         onEnvelopeSelected: "",
     },

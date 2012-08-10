@@ -7,11 +7,15 @@ enyo.kind({
         { kind: "onyx.Toolbar",
           classes: "sparsam-title",
           content: "Envelopes", },
-        { kind: "enyo.Scroller", fit: true, components: [
+        { kind: "enyo.Scroller",
+	  fit: true,
+	  classes: "sparsam",
+	  components: [
             { kind: "enyo.Repeater",
               count: 0,
               onSetupItem: "envelopeSetup",
-              components: [{ name: "envelope", kind: "Envelope", }],}],}],
+              components: [{ name: "envelope", kind: "Envelope", }],}],},
+	{ kind: "onyx.Toolbar", }],
     create: function() {
         this.inherited(arguments);
         // (show spinner)
