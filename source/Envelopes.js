@@ -18,11 +18,7 @@ enyo.kind({
         this.fetch();
     },
     fetch: function() {
-        var request = new enyo.Ajax({
-            method: "GET",
-            url: "/sparsam/wsgi/envelopes",
-            callbackName: "callback"
-        });
+        var request = new EnvelopesFetch();
         request.response(enyo.bind(this, "answerReady"));
         request.go();
     },

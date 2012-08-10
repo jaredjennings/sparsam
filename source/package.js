@@ -11,5 +11,6 @@ enyo.depends(
     "SpendNow.js",
     "SpendNow.css",
     "SparsamApp.js",
-    "SparsamApp.css"
+    "SparsamApp.css",
+    "requests.js"
 );
