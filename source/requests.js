@@ -23,3 +23,10 @@ enyo.kind({
     url: "https://np4.agrue.info/sparsam-dev/wsgi/spend",
 })
     
+
+enyo.kind({
+    name: "HistoryRequest",
+    kind: "enyo.Ajax",
+    method: "POST",
+    url: "https://np4.agrue.info/sparsam-dev/wsgi/history",
+})
