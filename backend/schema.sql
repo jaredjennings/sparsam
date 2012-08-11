@@ -7,6 +7,7 @@ create table envelope (
 create table txn (
 	id integer primary key,
 	eid integer,
+	datetime text,
 	description text,
 	special text,
 	cents integer
