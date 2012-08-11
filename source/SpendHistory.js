@@ -1,7 +1,10 @@
 enyo.kind({
 	name: "SpendHistory",
 	kind: "enyo.Scroller",
-	classes: "onyx spend-history",
+	classes: "sparsam onyx spend-history",
+	published: {
+		eid: 0,
+	},
 	components: [
 		{kind: "enyo.Repeater",
 		 count: 0,
@@ -9,10 +12,6 @@ enyo.kind({
 		 components: [
 			{ kind: "SpendHistoryItem", }],
 		}],
-	create: function() {
-		this.inherited(arguments);
-		this.$.repeater.setCount(this.txns.length);
-	},
 	spendItemSetup: function(inSender, inEvent) {
 		var index = inEvent.index;
 		var item = inEvent.item;
@@ -20,8 +19,13 @@ enyo.kind({
 		item.$.spendHistoryItem.setDate(txn.date);
 		item.$.spendHistoryItem.setAmount(txn.amount);
 	},
-	fetch: function(eid, name) {
-		this.$.name.setContent(name);
+	eidChanged: function(oldValue) {
+		alert("eid is " + this.eid);
+		if(this.eid == 0) {
+			this.$.repeater.setCount(0);
+		} else {
+			this.$.repeater.setCount(this.txns.length);
+		}
 	},
 	txns: [
 		{date: "12 Dec", amount: 4714},
@@ -50,5 +54,3 @@ enyo.kind({
 		{date: "43 Dec", amount: 233}
 	],
 })
-
-

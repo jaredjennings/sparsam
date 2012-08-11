@@ -3,6 +3,8 @@ enyo.kind({
     kind: "enyo.FittableRows",
     classes: "onyx envelopes",
     envelopesById: {},
+    handlers: {
+	onSpendPosted: "onSpendPosted", },
     components: [
         { kind: "onyx.Toolbar",
           classes: "sparsam-title",
@@ -36,9 +38,11 @@ enyo.kind({
         var item = inEvent.item;
         var e = this.envelopeInfo[index];
         item.$.envelope.setFromObject(e);
+	this.envelopesById[e.eid] = item.$.envelope;
         return true;
     },
-    refetch: function(eid) {
-        this.envelopesById[eid].refetch();
+    onSpendPosted: function(inSender, inEvent) {
+        this.envelopesById[inEvent.eid].refetch();
+        return false;
     },
 });

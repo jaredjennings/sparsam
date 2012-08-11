@@ -16,7 +16,8 @@ enyo.kind({
         onEnvelopeSelected: "onEnvelopeSelected",
         onBackFromSpendHistoryColumn: "onBackFromSpendHistoryColumn", },
     onEnvelopeSelected: function(inSender, inEvent) {
-        this.$.spendHistoryColumn.fetch(inEvent.eid, inEvent.ename);
+        this.$.spendHistoryColumn.setEid(inEvent.eid);
+        this.$.spendHistoryColumn.setEname(inEvent.ename);
         this.$.spendHistoryColumn.show();
         this.$.panels.setIndex(1);
         // this messes up the whole alignment, in Chromium. Why?
