@@ -16,6 +16,8 @@ enyo.kind({
         onEnvelopeSelected: "onEnvelopeSelected",
         onBackFromSpendHistoryColumn: "onBackFromSpendHistoryColumn", },
     onEnvelopeSelected: function(inSender, inEvent) {
+	// empty spend history, and guarantee refetch in next statement
+        this.$.spendHistoryColumn.setEid(0);
         this.$.spendHistoryColumn.setEid(inEvent.eid);
         this.$.spendHistoryColumn.setEname(inEvent.ename);
         this.$.spendHistoryColumn.show();

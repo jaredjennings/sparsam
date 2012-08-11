@@ -13,6 +13,12 @@ enyo.kind({
 	  fit: true,
 	  classes: "sparsam",
 	  components: [
+            { kind: "onyx.Scrim",
+              showing: false,
+              name: "spinner",
+              components: [
+                { kind: "onyx.Spinner", },
+                { tag: "div", content: "Fetching envelopes", }],},
             { kind: "enyo.Repeater",
               count: 0,
               onSetupItem: "envelopeSetup",
@@ -20,18 +26,18 @@ enyo.kind({
 	{ kind: "onyx.Toolbar", }],
     create: function() {
         this.inherited(arguments);
-        // (show spinner)
         this.fetch();
     },
     fetch: function() {
         var request = new EnvelopesFetch();
         request.response(enyo.bind(this, "answerReady"));
+        this.$.spinner.show();
         request.go();
     },
     answerReady: function(inRequest, inResponse) {
         this.envelopeInfo = inResponse['envelopes'];
         this.$.repeater.setCount(Object.keys(this.envelopeInfo).length);
-        // (hide spinner)
+        this.$.spinner.hide();
     },
     envelopeSetup: function(inSender, inEvent) {
         var index = inEvent.index;
