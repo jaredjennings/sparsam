@@ -20,7 +20,6 @@ enyo.kind({
 		item.$.spendHistoryItem.setAmount(txn.amount);
 	},
 	eidChanged: function(oldValue) {
-		alert("eid is " + this.eid);
 		if(this.eid == 0) {
 			this.$.repeater.setCount(0);
 		} else {

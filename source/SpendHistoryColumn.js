@@ -26,9 +26,7 @@ enyo.kind({
 	],
 	eidChanged: function(oldValue) {
 		this.$.spendNow.setEid(this.eid);
-                alert('setting spendHistory eid to ' + this.eid);
 		this.$.spendHistory.setEid(this.eid);
-                alert('spendHistory eid is now ' + this.$.spendHistory.getEid());
 	},
 	enameChanged: function(oldValue) {
 		this.$.name.setContent(this.ename);
