@@ -45,7 +45,7 @@ endif
 
 # this target does not actually deploy anything: it creates a dir ready to be
 # deployed
-deploy-enyo-frontend-stamp: source/* enyo/*
+deploy-enyo-frontend-stamp: source/* enyo/* index.html assets/*
 	mkdir -p deploy
 	cd tools; ./deploy.sh
 	set -x; cd deploy; rm -f latest; ln -s `ls -1 | tail -n 1` latest
