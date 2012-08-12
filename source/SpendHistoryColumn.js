@@ -36,7 +36,7 @@ enyo.kind({
 	},
         spendPosted: function(inSender, inEvent) {
 		this.doBackFromSpendHistoryColumn();
-		this.$.spendNow.setEid(0);
+		this.setEid(0);
 		this.setEname("");
 	},
 })

@@ -14,7 +14,8 @@ enyo.kind({
               { kind: "SpendHistoryColumn" }],}],
     handlers: {
         onEnvelopeSelected: "onEnvelopeSelected",
-        onBackFromSpendHistoryColumn: "onBackFromSpendHistoryColumn", },
+        onBackFromSpendHistoryColumn: "onBackFromSpendHistoryColumn",
+        onSpendPosted: "spendPosted", },
     onEnvelopeSelected: function(inSender, inEvent) {
 	// empty spend history, and guarantee refetch in next statement
         this.$.spendHistoryColumn.setEid(0);
@@ -27,5 +28,8 @@ enyo.kind({
     },
     onBackFromSpendHistoryColumn: function(inSender, inEvent) {
         this.$.panels.setIndex(0);
+    },
+    spendPosted: function(inSender, inEvent) {
+        this.$.envelopes.refetch(inEvent.eid);
     },
 });

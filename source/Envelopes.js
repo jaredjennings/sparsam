@@ -47,8 +47,7 @@ enyo.kind({
 	this.envelopesById[e.eid] = item.$.envelope;
         return true;
     },
-    onSpendPosted: function(inSender, inEvent) {
-        this.envelopesById[inEvent.eid].refetch();
-        return false;
+    refetch: function(eid) {
+        this.envelopesById[eid].refetch();
     },
 });
